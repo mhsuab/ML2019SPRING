@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from sklearn.utils import shuffle
 import sys
 
 def read_train(filename = 'train.csv'):
@@ -75,6 +74,7 @@ def read_test(filename = 'test.csv'):
     return np.array(X)
 
 def train(x, y, batch_size = 471):
+    from sklearn.utils import shuffle
     w = np.ones(x.shape[1])
     lr_w = np.ones(w.shape)
     lr = 1
