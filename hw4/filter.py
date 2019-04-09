@@ -37,9 +37,7 @@ model = load_model('models/try18.h5')
 layers = dict([layer.name, layer] for layer in model.layers)
 input_img = model.input
 
-name_ls = [s for s in layers.keys() if 'leaky' in s]
-collect_layers = [layers[s].output for s in name_ls]
-collect_layers = [k.function([input_img, k.learning_phase()], [layers['conv2d_2'].output])]
+collect_layers = [k.function([input_img, k.learning_phase()], [layers['conv2d_3'].output])]
 
 
 for cnt, fn in enumerate(collect_layers):
@@ -54,7 +52,7 @@ for cnt, fn in enumerate(collect_layers):
         plt.tight_layout()
     fig.savefig('fig2_out.png')
 
-collect_layers = [layers['conv2d_2'].output]
+collect_layers = [layers['conv2d_3'].output]
 for cnt, c in enumerate(collect_layers):
     filter_img = []
     for i in range(64):
@@ -70,12 +68,11 @@ for cnt, c in enumerate(collect_layers):
     for it in range(100//10):
         fig = plt.figure(figsize = (14, 8))
         for i in range(64):
-            print (i)
             q = fig.add_subplot(64/16, 16, i + 1)
             raw = filter_img[i][it][0].squeeze()
             q.imshow(depross_img(raw), cmap = 'Oranges')
             plt.xticks(np.array([]))
             plt.yticks(np.array([]))
-            plt.xlabel('{:.3f}'.format(filter_img[i][it][1]))
+            #plt.xlabel('{:.3f}'.format(filter_img[i][it][1]))
             plt.tight_layout()
         fig.savefig('fig2.png')
