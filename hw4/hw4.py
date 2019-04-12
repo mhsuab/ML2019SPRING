@@ -12,7 +12,7 @@ import sys
 np.random.seed(5)
 model = load_model('models/try18.h5')
 
-path = sys.argv[2]
+path = sys.argv[2] + '/'
 raw = pd.read_csv(sys.argv[1], nrows = 300)
 x = np.array([i.split(' ') for i in raw['feature']]).astype('float')
 y = pd.get_dummies(raw['label']).values
