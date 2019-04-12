@@ -5,24 +5,10 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-
-import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-
 import tensorflow as tf
 import keras.backend.tensorflow_backend as KTF
 
-
-'''
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
-sess = tf.Session(config = config)
-KTF.set_session(sess)
-'''
-config = tf.ConfigProto()
-config.gpu_options.per_process_gpu_memory_fraction = 0.4
-session = tf.Session(config = config)
-KTF.set_session(session)
+import sys
 
 
 def myShuffle(x, y):
@@ -39,18 +25,10 @@ def split_valid_set(x, y, percentage = 0.8):
 
 #read file
 
-raw = pd.read_csv('data/train.csv')
+raw = pd.read_csv(sys.argv[1])
 x = np.array([i.split(' ') for i in raw['feature']]).astype('float')
-#y = pd.get_dummies(raw['label']).values
+y = pd.get_dummies(raw['label']).values
 x = (x).reshape((-1, 48, 48, 1))
-
-test = np.array([i.split(' ') for i in pd.read_csv('data/test.csv')['feature']]).astype('float')
-test = (test).reshape((-1, 48, 48, 1))
-
-
-#x = np.load('data/xtrain.npy')
-y = np.load('data/ytrain.npy')
-#test = np.load('data/xtest.npy')
 
 xtrain, ytrain, xvalid, yvalid = split_valid_set(x, y, 0.9)
 
@@ -121,20 +99,11 @@ datagen = ImageDataGenerator(
 
 datagen.fit(xtrain)
 
-history = model.fit_generator(datagen.flow(xtrain, ytrain, batch_size = 32),
+model.fit_generator(datagen.flow(xtrain, ytrain, batch_size = 32),
     steps_per_epoch = xtrain.shape[0]//32,
     validation_data = (xvalid, yvalid),
     epochs = 500, verbose = 1, max_q_size = 100,
     callbacks = callbacks)
-
-
-predict = model.predict(test)
-testy = np.argmax(predict, axis = 1)
-with open(sys.argv[1] + '.csv', 'w') as f:
-    f.write('id,label\n')
-    for i in range(len(testy)):
-        f.write(str(i) + ',' + str(testy[i]) + '\n')
-
 
 
 
