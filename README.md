@@ -12,9 +12,9 @@ Linear Regression - PM2.5 Prediction
 [kaggle link](https://www.kaggle.com/c/ml2019spring-hw1)
 
 ## Homework 2
-Generative model, Logistic regression - Income Prediction
-[report](./hw2/report.pdf)
-[HW#2 website](https://ntumlta2019.github.io/ml-web-hw2/)
+Generative model, Logistic regression - Income Prediction  
+[report](./hw2/report.pdf)  
+[HW#2 website](https://ntumlta2019.github.io/ml-web-hw2/)  
 [kaggle link](https://www.kaggle.com/c/ml2019spring-hw2)
 
 ## Homework 3
