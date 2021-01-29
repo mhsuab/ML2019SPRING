@@ -47,3 +47,7 @@ Unsupervised Learning
 ## Homework 8
 Network Compression  
 [report](./hw8/report.pdf)
+
+## final
+Image Dehaze  
+[repo](https://github.com/zytyz/ML2019SPRING/tree/master/final)
