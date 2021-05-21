@@ -49,5 +49,4 @@ Network Compression
 [report](./hw8/report.pdf)
 
 ## final
-Image Dehaze  
-[repo](https://github.com/mhsuab/Image-Dehazing)
+[Image Dehaze](./final)
